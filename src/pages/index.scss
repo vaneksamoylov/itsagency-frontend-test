@@ -1,0 +1,19 @@
+@import url("../vendor/normalize.css");
+@import url("../vendor/fonts/fonts.css");
+
+// pallete
+:root {
+    --color-black: #1F2020;
+    --color-green: #7BB899;
+    --color-white: #FFFFFF;
+}
+
+.page {
+  font-family: "Inter", sans-serif;
+
+  &__container {
+    max-width: 1920px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
