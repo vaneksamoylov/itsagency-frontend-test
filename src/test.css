@@ -1,0 +1,6 @@
+.test {
+  display: block;
+  background: #000;
+  transition: all;
+  background-color: red;
+}

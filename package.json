@@ -1,9 +1,16 @@
 {
   "dependencies": {
-    "axios": "^1.10.0",
+    "chokidar": "^3.6.0",
     "eslint": "^8.57.1",
+    "live-server": "^1.2.2",
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
     "sass": "^1.89.2"
+  },
+  "scripts": {
+    "dev": "concurrently \"node watch-scss.js\" \"node dev-server.js \""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
   }
 }

@@ -2,7 +2,7 @@
 
 export async function loadStyles(componentName) {
   try {
-    const cssPath = `blocks/${componentName}/${componentName}.css`;
+    const cssPath = `src/components/${componentName}/${componentName}.css`;
     const response = await fetch(cssPath);
     
     if (!response.ok) {

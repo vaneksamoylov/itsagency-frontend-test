@@ -1,5 +1,5 @@
-import { loadStyles } from "../utils/helpers.js";
-import api from "../utils/api.js"; // Ensure API is imported for potential use
+import { loadStyles } from "../../utils/helpers.js";
+import api from "../../utils/api.js"; // Ensure API is imported for potential use
 
 class SiteHeader extends HTMLElement {
   constructor() {
@@ -30,7 +30,7 @@ class SiteHeader extends HTMLElement {
   }
   renderContent() {
     const logoImg = this.shadowRoot.getElementById("logo-img");
-    logoImg.src = "images/ColorsLogo.svg";
+    logoImg.src = "src/images/ColorsLogo.svg";
     logoImg.alt = "Colors Logo";
 
     const nav = this.shadowRoot.getElementById("nav");
@@ -85,17 +85,14 @@ class SiteHeader extends HTMLElement {
         },
         {
           type: "favourite",
-        },
-        {
-          type: "purchase",
-        },
+        }
       ];
       buttonsList.innerHTML = buttons
         .map(
           (button) => `
         <li class="site-header__buttons-list-item">
           <button type="button" class="site-header__button" id="${button.type}-button">
-            <img src="images/icons/${button.type}-icon.png" alt="${button.type} icon" class="site-header__button-icon" />
+            <img src="src/images/icons/${button.type}-icon.png" alt="${button.type} icon" class="site-header__button-icon" />
           </button>
         </li>
       `,
