@@ -12,6 +12,20 @@
     justify-content: space-between;
     margin: 0 64px;
 
+    @media (max-width: 1279px) {
+        margin: 0 24px;
+    }
+
+    &__nav-container {
+        display: flex;
+        align-items: center;
+        gap: 172px;
+
+        @media (max-width: 1535px) {
+            gap: 116px;
+        }
+    }
+
     &__logo-container {
         width: 131px;
         height: 26px;
@@ -21,13 +35,17 @@
         display: flex;
         align-items: center;
         gap: 24px;
+
+        @media (max-width: 1279px) {
+            display: none;
+        }
     }
     
     &__nav-link {
         font-weight: 400;
         font-size: 14px;
         line-height: 100%;
-        letter-spacing: 6%;
+        letter-spacing: 0.05rem;
         color: var(--color-black);
         text-decoration: none;
         transition: opacity .3s linear;
@@ -37,10 +55,30 @@
         }
     }
 
+    &__utils-container {
+        display: flex;
+        align-items: center;
+        gap: 116px;
+
+        @media (max-width: 1535px) {
+            gap: 58px;
+        }
+    }
+
+    &__buttons-container {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
     &__contact {
         display: flex;
         flex-direction: column;
         gap: 2px;
+
+        @media (max-width: 1279px) {
+            display: none;
+        }
     }
 
     &__contact-tel {
@@ -49,7 +87,7 @@
         line-height: 100%;
         color: var(--color-black);
         text-decoration: none;
-        letter-spacing: -2%;
+        // letter-spacing: 0.02em;
     }
 
     &__contact-text {
@@ -66,6 +104,11 @@
         display: flex;
         align-items: center;
         gap: 24px;
+        padding: 0;
+
+        @media (max-width: 1279px) {
+            display: none;
+        }
     }
 
     &__buttons-list-item {
@@ -76,8 +119,7 @@
     }
 
     &__button {
-        width: 20px;
-        height: 22px;
+        height: 24px;
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -87,13 +129,22 @@
     }
 
     &__button-icon {
-        width: auto;
-        max-height: 20px;
-        height: 100%;
+        max-height: 24px;
         fill: var(--color-black);
         transition: fill .3s linear;
         display: flex;
         align-items: center;
+    }
 
+    
+    &__side-menu-button {
+        display: none;
+        width: 24px;
+        max-width: 100%;
+        height: 14px;
+
+        @media (max-width: 1279px) {
+            display: block;
+        }
     }
 }
