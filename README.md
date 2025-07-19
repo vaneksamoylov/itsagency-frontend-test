@@ -1,15 +1,24 @@
 # COLORS
 ## _Тестовое задания для фронтенд-разработчика в компанию [its.agency](https://its.agency/)_
 
+[![pages-build-deployment](https://github.com/vaneksamoylov/itsagency-frontend-test/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/vaneksamoylov/itsagency-frontend-test/actions/workflows/pages/pages-build-deployment)
+
 ## Функции
 
 [ ] Слайдер
+
 [ ] Фильтрация по типам товаров
+
 [ ] Сортировка по убыванию и возрастанию цены
+
 [ ] Добавление товара в корзину
+
 [ ] Открытие и закрытие модального окна с корзиной, фильтров и меню на мобильном
+
 [ ] Изменение количества товаров в корзине
+
 [ ] Расчет стоимости товаров в корзине
+
 [ ] Удаление товара из корзины
 
 ## Требования
