@@ -1,0 +1,102 @@
+/* Базовые стили компонента */
+.site-slider-container {
+  display: block;
+  max-width: 1920px;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+
+  /* CSS переменные для кастомизации */
+  --slide-height: 560px;
+  --slide-bg: linear-gradient(45deg, #1a2980, #26d0ce);
+  --slide-color: white;
+  --navigation-color: #fff;
+  --pagination-color: #fff;
+  --pagination-bullet-size: 6px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--slide-height);
+  background: var(--slide-bg);
+  color: var(--slide-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  transform: scale(0.85);
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+  opacity: 0.7;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.swiper-slide-active {
+  transform: scale(1);
+  opacity: 1;
+  z-index: 10;
+}
+
+.swiper-button-next {
+  right: 78px;
+}
+
+.swiper-button-prev {
+  left: 78px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  transition: all 0.3s ease;
+  width: 20px;
+  height: 40px;
+
+  font-weight: 400;
+
+  &::after {
+    color: #fff;
+  }
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.swiper-pagination-bullet {
+  width: var(--pagination-bullet-size);
+  height: var(--pagination-bullet-size);
+  background: var(--pagination-color);
+  opacity: 0.2;
+  transition: all 0.3s ease;
+  margin-bottom: 39px;
+
+  &-active {
+    opacity: 1;
+  }
+}
+
+.swiper-pagination {
+    display: flex;
+    gap: 8px;
+    bottom: 39px !important;
+    width: fit-content !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 13px 24px;
+    border-radius: 16px;
+}

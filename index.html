@@ -1,21 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COLORS</title>
-  <link rel="stylesheet" href="./src/pages/index.css">
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script type="module">
-    import './src/components/site-header/site-header.js';
-  </script>
-
-</head>
-<body class="page">
-  <div class="page__container">
-    <site-header></site-header>
-
-  </div>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COLORS</title>
+    <link rel="stylesheet" href="./src/pages/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module">
+      import "./src/components/site-header/site-header.js";
+      import "./src/components/site-slider/site-slider.js";
+    </script>
+  </head>
+  <body class="page">
+    <div class="page__container">
+      <site-header></site-header>
+      <site-slider>
+        <div>
+          <div class="site-header__slide-content">
+            <img class="site-header__slide-image" src="./src/images/Slide1.jpg" />
+            <div class="site-header__slide-text-area">
+              <!-- TODO: Разобраться, почему у заголовка нет высоты -->
+              <h2 class="site-header__slide-title">Краски</h2>
+              <p class="site-header__slide-subtitle">
+                Идеально подходят для стен и других поверхностей. Найди свой
+                идеальный цвет!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>Любой контент 2</div>
+        <div>Любой контент 3</div>
+      </site-slider>
+    </div>
+  </body>
 </html>

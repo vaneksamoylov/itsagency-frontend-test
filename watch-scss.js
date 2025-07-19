@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Наблюдаем за всеми SCSS файлами в проекте
-const watcher = chokidar.watch('src/components/**/*.scss', {
+const watcher = chokidar.watch('src/**/*.scss', {
   persistent: true,
   ignoreInitial: false // Обрабатываем существующие файлы при старте
 });
