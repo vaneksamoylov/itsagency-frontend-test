@@ -11,6 +11,7 @@ class SiteCatalog extends HTMLElement {
     this.sortOption = "price_desc";
     this._overlay = null;
     this._isOpen = false;
+    this._isSortOpen = false;
     this._handleResize = this._handleResize.bind(this);
     this.resizeObserver = new ResizeObserver(() => this._handleResize());
   }
@@ -59,12 +60,16 @@ class SiteCatalog extends HTMLElement {
                     <div class="catalog__count" id="productCount"></div>
                 </div>
                 <div class="catalog__sort">
-                  <select class="catalog__sort-select" id="sortSelect">
-                    <option value="price_desc">Сначала дорогие</option>
-                    <option value="price_asc">Сначала недорогие</option>
-                    <option value="name_asc">Сначала популярные</option>
-                    <option value="new_first">Сначала новые</option>
-                  </select>
+                  <button class="catalog__sort-button" id="sortButton">
+                    <span id="sortButtonText">Сначала дорогие</span>
+                    <img src="./src/images/icons/select-arrow-icon.png" alt="select-arrow-icon" />
+                  </button>
+                  <ul class="catalog__sort-list" id="sortList">
+                    <li data-value="price_desc" class="catalog__sort-selected">Сначала дорогие</li>
+                    <li data-value="price_asc">Сначала недорогие</li>
+                    <li data-value="name_asc">Сначала популярные</li>
+                    <li data-value="new_first">Сначала новые</li>
+                  </ul>
                 </div>
             </div>
 
@@ -78,7 +83,10 @@ class SiteCatalog extends HTMLElement {
       this.shadowRoot.getElementById("productsContainer");
     this.productCount = this.shadowRoot.getElementById("productCount");
     this.filterToggle = this.shadowRoot.getElementById("filterToggle");
-    this.sortSelect = this.shadowRoot.getElementById("sortSelect");
+
+    this.sortButton = this.shadowRoot.getElementById("sortButton");
+    this.sortButtonText = this.shadowRoot.getElementById("sortButtonText");
+    this.sortList = this.shadowRoot.getElementById("sortList");
 
     // Создаем оверлей
     this._overlay = document.createElement("div");
@@ -114,10 +122,17 @@ class SiteCatalog extends HTMLElement {
   }
 
   open() {
+    if (this._isSortOpen) {
+      this.closeSortList(); // Закрываем селект если открыт
+    }
+    
     this._isOpen = true;
     this.filtersPanel.classList.add("catalog__filters--active");
+    
+    // Показываем оверлей
     this._overlay.classList.add("site-catalog-overlay--visible");
     document.body.style.overflow = "hidden";
+    
     this.dispatchEvent(
       new CustomEvent("catalog-filters-open", { bubbles: true }),
     );
@@ -126,8 +141,13 @@ class SiteCatalog extends HTMLElement {
   close() {
     this._isOpen = false;
     this.filtersPanel.classList.remove("catalog__filters--active");
-    this._overlay.classList.remove("site-catalog-overlay--visible");
-    document.body.style.overflow = "";
+    
+    // Скрываем оверлей, если не открыт селект
+    if (!this._isSortOpen) {
+      this._overlay.classList.remove("site-catalog-overlay--visible");
+      document.body.style.overflow = "";
+    }
+    
     this.dispatchEvent(
       new CustomEvent("catalog-filters-close", { bubbles: true }),
     );
@@ -162,25 +182,54 @@ class SiteCatalog extends HTMLElement {
       input.addEventListener("change", this._handleFilterChange.bind(this));
     });
 
-    // Обработчик сортировки
-    this.sortSelect.addEventListener("change", (e) => {
-      this.sortOption = e.target.value;
-      this._applyFilters();
-    });
-
     // Переключение фильтров на мобильных
     this.filterToggle.addEventListener("click", () => {
       this.toggle();
     });
 
-    // Обработчик клика на оверлей
-    this._overlay.addEventListener("click", () => this.close());
-
     // Обработчик закрытия по ESC
     this._keydownHandler = (e) => {
-      if (e.key === "Escape" && this._isOpen) this.close();
+      if (e.key === 'Escape') {
+        if (this._isOpen) this.close();
+        if (this._isSortOpen) this.closeSortList();
+      }
     };
+    
     document.addEventListener("keydown", this._keydownHandler);
+
+    this.sortButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.toggleSortList();
+    });
+
+    this.sortList.addEventListener("click", (e) => {
+      if (e.target.tagName === "LI") {
+        const value = e.target.dataset.value;
+        this.sortOption = value;
+        this.sortList.querySelectorAll("li").forEach((li) => {
+          li.classList.remove("catalog__sort-selected");
+        });
+
+        // Добавляем выделение выбранному элементу
+        e.target.classList.add("catalog__sort-selected");
+        this.sortButtonText.textContent = e.target.textContent;
+        this.closeSortList();
+        this._applyFilters();
+      }
+    });
+
+    // Закрытие списка при клике вне элемента
+    document.addEventListener("click", (e) => {
+      if (!this.sortList.contains(e.target) && e.target !== this.sortButton) {
+        this.closeSortList();
+      }
+    });
+
+    // Общий обработчик клика для закрытия по оверлею
+    this._overlay.addEventListener("click", () => {
+      if (this._isOpen) this.close();
+      if (this._isSortOpen) this.closeSortList();
+    });
   }
 
   _handleFilterChange(e) {
@@ -218,6 +267,40 @@ class SiteCatalog extends HTMLElement {
 
     this._sortProducts();
     this._renderProducts();
+  }
+
+  toggleSortList() {
+    if (this._isSortOpen) {
+      this.closeSortList();
+    } else {
+      this.openSortList();
+    }
+  }
+
+  openSortList() {
+    if (this._isOpen) {
+      this.close(); // Закрываем фильтры если открыты
+    }
+    
+    this._isSortOpen = true;
+    this.sortList.classList.add('catalog__sort-list--open');
+    this.sortButton.classList.add('catalog__sort-button--active');
+    
+    // Показываем оверлей
+    this._overlay.classList.add("site-catalog-overlay--visible");
+    document.body.style.overflow = "hidden";
+  }
+
+  closeSortList() {
+    this._isSortOpen = false;
+    this.sortList.classList.remove('catalog__sort-list--open');
+    this.sortButton.classList.remove('catalog__sort-button--active');
+    
+    // Скрываем оверлей, если не открыты фильтры
+    if (!this._isOpen) {
+      this._overlay.classList.remove("site-catalog-overlay--visible");
+      document.body.style.overflow = "";
+    }
   }
 
   _sortProducts() {
