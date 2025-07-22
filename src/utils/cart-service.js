@@ -14,21 +14,22 @@ class CartService {
   async _loadFromServer() {
     try {
       const serverCart = await api.getCart();
-      
+
       // Если сервер возвращает пустую корзину - очищаем локальное хранилище
       if (serverCart.length === 0) {
-        localStorage.removeItem('cart');
+        localStorage.removeItem("cart");
+        return;
       }
-      
-      this.cart = serverCart.map(item => ({
+
+      this.cart = serverCart.map((item) => ({
         ...item,
-        productId: item.productId || item.id 
+        productId: item.productId || item.id,
       }));
-      
+
       this._saveToLocalStorage();
       this._dispatchUpdate();
     } catch (error) {
-      console.error('Error loading cart from server:', error);
+      console.error("Error loading cart from server:", error);
       await this._loadFromLocalStorage();
     }
   }
@@ -134,32 +135,16 @@ class CartService {
 
   async clearCart() {
     try {
-      await api.clearCart();
-
       this.cart = [];
       this._saveToLocalStorage();
       this._dispatchUpdate();
+      await api.clearCart();
+
       return true;
     } catch (error) {
       console.error("Error clearing cart:", error);
-      try {
-        await this._localClearCartFallback();
-        return true;
-      } catch (fallbackError) {
-        console.error("Fallback clearing failed:", fallbackError);
-        return false;
-      }
     }
-  }
-
-  async _localClearCartFallback() {
-    await Promise.all(this.cart.map((item) => api.removeFromCart(item.id)));
-
-    this.cart = [];
-    this._saveToLocalStorage();
-    this._dispatchUpdate();
   }
 }
 
-// Экспортируем singleton экземпляр
 export const cartService = new CartService();

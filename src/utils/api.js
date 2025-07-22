@@ -51,10 +51,10 @@ export default {
   },
 
   async clearCart() {
-    const cartItems = await apiClient.get('/cart-list');
+    const cartItems = await this.getCart();
     
     await Promise.all(
-      cartItems.map(item => apiClient.delete(`/cart-list/${item.id}`))
+      cartItems.map(item => this.removeFromCart(item.id))
     );
     
     return { success: true };
