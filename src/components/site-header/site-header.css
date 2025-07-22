@@ -127,6 +127,18 @@
   display: flex;
   align-items: center;
 }
+.site-header__button-icon--hidden {
+  display: none;
+}
+.site-header__cart-count {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  background-color: var(--color-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .site-header__side-menu-button {
   display: none;
   width: 24px;

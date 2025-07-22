@@ -1,0 +1,112 @@
+:host {
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:host(.last-row-item) {
+  border: none;
+}
+
+.product-card {
+  overflow: hidden;
+  height: 100%;
+
+  &__image-container {
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__info {
+    padding: 16px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 16px 0 0;
+    line-height: 112%;
+    letter-spacing: 0.02em;
+    color: var(--color-black);
+  }
+
+  &__buying-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  &__add-to-cart-btn {
+    background-color: var(--color-green);
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    background-image: url("./src/images/icons/plus.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 80px;
+    height: 32px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    padding: 0;
+
+    &_visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__price {
+    font-weight: 600;
+    margin: 0;
+    font-size: 16px;
+    line-height: 100%;
+    color: var(--color-black);
+  }
+
+  &__status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 8px;
+
+    &--new {
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+
+    &--in_stock {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    &--contract {
+      background-color: #f0f9ff;
+      color: #0c4a6e;
+    }
+
+    &--exclusive {
+      background-color: #fae8ff;
+      color: #86198f;
+    }
+
+    &--sale {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+  }
+
+  &__count {
+    font-size: 14px;
+    color: #666;
+  }
+}

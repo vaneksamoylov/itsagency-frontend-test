@@ -1,5 +1,6 @@
 import { loadStyles } from "../../utils/helpers.js";
 import api from "../../utils/api.js"; // Ensure API is imported for potential use
+import { cartService } from "../../utils/cart-service.js";
 
 class SiteHeader extends HTMLElement {
   constructor() {
@@ -39,7 +40,7 @@ class SiteHeader extends HTMLElement {
               class="site-header__button"
               id="cart-button"
             >
-              <img src="src/images/icons/cart-icon.png" alt="cart-icon" class="site-header__button-icon" />
+              <img src="src/images/icons/cart-icon.png" id="cart-icon" alt="cart-icon" class="site-header__button-icon" />
             </button>
           </div>
         </div>
@@ -48,6 +49,7 @@ class SiteHeader extends HTMLElement {
 
     this.renderContent();
   }
+  
   renderContent() {
     const logoImg = this.shadowRoot.getElementById("logo-img");
     logoImg.src = "src/images/ColorsLogo.svg";
@@ -105,7 +107,7 @@ class SiteHeader extends HTMLElement {
         },
         {
           type: "favourite",
-        }
+        },
       ];
       buttonsList.innerHTML = buttons
         .map(
@@ -119,6 +121,35 @@ class SiteHeader extends HTMLElement {
         )
         .join("");
     }
+
+    this.sideMenuButton = this.shadowRoot.getElementById("side-menu-button");
+    this.cartButton = this.shadowRoot.getElementById("cart-button");
+
+    this.sideMenuButton.addEventListener("click", () => {
+      document.querySelector('site-drawer[direction="left"]').open();
+    });
+
+    this.cartButton.addEventListener("click", () => {
+      document.querySelector('site-drawer[direction="right"]').open();
+    });
+
+    this.cartButtonImage = this.shadowRoot.getElementById("cart-icon");
+    this.cartCountEl = document.createElement("span");
+    this.cartCountEl.className = "site-header__cart-count";
+    this.cartButton.appendChild(this.cartCountEl);
+
+    // Обновляем счетчик при загрузке
+    this.updateCartCount();
+
+    // Слушаем обновления корзины
+    window.addEventListener("cart-updated", () => this.updateCartCount());
+  }
+
+  updateCartCount() {
+    const count = cartService.getTotalCount();
+    this.cartCountEl.textContent = count > 0 ? count : '';
+    this.cartCountEl.classList.toggle('site-header__cart-count--visible', count > 0);
+    this.cartButtonImage.classList.toggle('site-header__button-icon--hidden', count !== 0);
   }
 }
 

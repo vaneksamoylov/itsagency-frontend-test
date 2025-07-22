@@ -134,8 +134,21 @@
         transition: fill .3s linear;
         display: flex;
         align-items: center;
+     
+        &--hidden {
+            display: none;
+        }   
     }
 
+    &__cart-count {
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        background-color: var(--color-green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     
     &__side-menu-button {
         display: none;

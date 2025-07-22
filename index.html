@@ -14,10 +14,26 @@
     <script type="module">
       import "./src/components/site-header/site-header.js";
       import "./src/components/site-slider/site-slider.js";
+      import "./src/components/site-drawer/site-drawer.js";
+      import "./src/components/site-catalog/site-catalog.js";
+      import "./src/components/site-product-card/site-product-card.js";
+      import "./src/components/site-cart/site-cart.js"
     </script>
   </head>
   <body class="page">
     <div class="page__container">
+      <site-drawer direction="right" id="cartDrawer">
+        <h2 slot="header">Корзина</h2>
+        <div slot="content" class="site-drawer__content">
+          <site-cart></site-cart>
+        </div>
+      </site-drawer>
+      <site-drawer direction="left" id="sideMenu">
+        <div slot="content">
+          <!-- Контент корзины -->
+        </div>
+      </site-drawer>
+
       <site-header></site-header>
       <site-slider>
         <div>
@@ -36,6 +52,7 @@
         <div>Любой контент 2</div>
         <div>Любой контент 3</div>
       </site-slider>
+      <site-catalog></site-catalog>
     </div>
   </body>
 </html>
