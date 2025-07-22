@@ -8,7 +8,7 @@ class SiteCatalog extends HTMLElement {
     this.products = [];
     this.filteredProducts = [];
     this.activeFilters = new Set();
-    this.sortOption = "default";
+    this.sortOption = "price_desc";
     this._overlay = null;
     this._isOpen = false;
     this._handleResize = this._handleResize.bind(this);
@@ -21,53 +21,50 @@ class SiteCatalog extends HTMLElement {
       <style>${styles}</style>
       <section class="catalog">
         <aside class="catalog__filters" id="filtersPanel">
-            <div class="catalog__filter-group">
-                <label class="catalog__filter">
-                    <input type="checkbox" name="status" value="new">
-                    <span class="catalog__checkmark"></span>
-                    <span class="catalog__filter-title">Новинки</span>
-                </label>
-                <label class="catalog__filter">
-                    <input type="checkbox" name="status" value="in_stock">
-                    <span class="catalog__checkmark"></span>
-                    <span class="catalog__filter-title">Есть в наличии</span>
-                </label>
-                <label class="catalog__filter">
-                    <input type="checkbox" name="status" value="contract">
-                    <span class="catalog__checkmark"></span>
-                    <span class="catalog__filter-title">Контрактные</span>
-                </label>
-                <label class="catalog__filter">
-                    <input type="checkbox" name="status" value="exclusive">
-                    <span class="catalog__checkmark"></span>
-                    <span class="catalog__filter-title">Эксклюзивные</span>
-                </label>
-                <label class="catalog__filter">
-                    <input type="checkbox" name="status" value="sale">
-                    <span class="catalog__checkmark"></span>
-                    <span class="catalog__filter-title">Распродажа</span>
-                </label>
-            </div>
+          <div class="catalog__filter-group">
+            <label class="catalog__filter">
+              <input type="checkbox" name="status" value="new">
+              <span class="catalog__checkmark"></span>
+              <span class="catalog__filter-title">Новинки</span>
+            </label>
+            <label class="catalog__filter">
+              <input type="checkbox" name="status" value="in_stock">
+              <span class="catalog__checkmark"></span>
+              <span class="catalog__filter-title">Есть в наличии</span>
+            </label>
+            <label class="catalog__filter">
+              <input type="checkbox" name="status" value="contract">
+              <span class="catalog__checkmark"></span>
+              <span class="catalog__filter-title">Контрактные</span>
+            </label>
+            <label class="catalog__filter">
+              <input type="checkbox" name="status" value="exclusive">
+              <span class="catalog__checkmark"></span>
+              <span class="catalog__filter-title">Эксклюзивные</span>
+            </label>
+            <label class="catalog__filter">
+              <input type="checkbox" name="status" value="sale">
+              <span class="catalog__checkmark"></span>
+              <span class="catalog__filter-title">Распродажа</span>
+            </label>
+          </div>
         </aside>
         
         <div class="catalog__main">        
             <div class="catalog__header">
                 <div class="catalog__header-group">
                     <button class="catalog__filter-toggle" id="filterToggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
-                    </svg>
+                      фильтры
                     </button>
                     <div class="catalog__count" id="productCount"></div>
                 </div>
                 <div class="catalog__sort">
-                    <select class="catalog__sort-select" id="sortSelect">
-                    <option value="default">По умолчанию</option>
-                    <option value="price_asc">По цене (возр.)</option>
-                    <option value="price_desc">По цене (убыв.)</option>
-                    <option value="name_asc">По названию (А-Я)</option>
-                    <option value="name_desc">По названию (Я-А)</option>
-                    </select>
+                  <select class="catalog__sort-select" id="sortSelect">
+                    <option value="price_desc">Сначала дорогие</option>
+                    <option value="price_asc">Сначала недорогие</option>
+                    <option value="name_asc">Сначала популярные</option>
+                    <option value="new_first">Сначала новые</option>
+                  </select>
                 </div>
             </div>
 
@@ -231,20 +228,28 @@ class SiteCatalog extends HTMLElement {
       case "price_desc":
         this.filteredProducts.sort((a, b) => b.price - a.price);
         break;
-      case "name_asc":
-        this.filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
+      case "popular":
+        this.filteredProducts;
         break;
-      case "name_desc":
-        this.filteredProducts.sort((a, b) => b.title.localeCompare(a.title));
-        break;
-      default:
-        // Без сортировки
+      case "new_first":
+        this.filteredProducts.sort((a, b) => {
+          // Оба товара новые - сохраняем порядок
+          if (a.status === "new" && b.status === "new") return 0;
+          // Только a новый - помещаем выше
+          if (a.status === "new") return -1;
+          // Только b новый - помещаем ниже
+          if (b.status === "new") return 1;
+          // Оба не новые - сохраняем порядок
+          return 0;
+        });
         break;
     }
   }
 
   _renderProducts() {
-    this.productCount.textContent = this._pluralizeProducts(this.filteredProducts.length).toUpperCase();
+    this.productCount.textContent = this._pluralizeProducts(
+      this.filteredProducts.length,
+    ).toUpperCase();
     this.productsContainer.innerHTML = "";
 
     this.filteredProducts.forEach((product) => {

@@ -13,6 +13,12 @@ class SiteCart extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${styles}</style>
       <div class="cart">
+        <div class="cart__total-menu">
+          <p class="cart__total-text" id="cartItemsCount">0 товаров</p>
+          <button type="button" class="cart__total-button" id="clearCartButton">
+            очистить список
+          </button>
+        </div>
         <div class="cart__items" id="cartItems"></div>
         
         <div class="cart__footer">
@@ -29,11 +35,31 @@ class SiteCart extends HTMLElement {
     this.cartItemsContainer = this.shadowRoot.getElementById("cartItems");
     this.cartTotalPrice = this.shadowRoot.getElementById("cartTotalPrice");
     this.checkoutButton = this.shadowRoot.getElementById("checkoutButton");
-
+    this.cartTotalCount = this.shadowRoot.getElementById("cartItemsCount");
+    this.clearCartButton = this.shadowRoot.getElementById("clearCartButton");
+    this.clearCartButton.addEventListener("click", () => this.clearCart());
     this.checkoutButton.addEventListener("click", () => this.checkout());
 
     window.addEventListener("cart-updated", () => this.updateCart());
     this.updateCart();
+  }
+
+   _pluralizeProducts(count) {
+    if (count % 100 >= 11 && count % 100 <= 19) {
+      return `${count} товаров`;
+    }
+
+    const lastDigit = count % 10;
+    switch (lastDigit) {
+      case 1:
+        return `${count} товар`;
+      case 2:
+      case 3:
+      case 4:
+        return `${count} товара`;
+      default:
+        return `${count} товаров`;
+    }
   }
 
   updateCart() {
@@ -121,10 +147,40 @@ class SiteCart extends HTMLElement {
       0,
     );
     this.cartTotalPrice.textContent = `${total} ₽`;
+    
+    const totalCount = this.cartItems.reduce(
+      (sum, item) => sum + item.quantity,
+      0,
+    );
+    
+    this.cartTotalCount.textContent = this._pluralizeProducts(totalCount);
   }
 
   async checkout() {
     alert("Заказ успешно оформлен! Отправлять на сервер мы его не будем :)")
+  }
+
+  async clearCart() {
+    const originalText = this.clearCartButton.textContent;
+    
+    // Показываем состояние загрузки
+    this.clearCartButton.disabled = true;
+    this.clearCartButton.textContent = 'Очистка...';
+    
+    try {
+      const success = await cartService.clearCart();
+      
+      if (!success) {
+        alert('Не удалось очистить корзину. Попробуйте еще раз.');
+      }
+    } catch (error) {
+      console.error('Ошибка при очистке корзины:', error);
+      alert('Произошла ошибка при очистке корзины');
+    } finally {
+      // Восстанавливаем кнопку
+      this.clearCartButton.disabled = false;
+      this.clearCartButton.textContent = originalText;
+    }
   }
 }
 

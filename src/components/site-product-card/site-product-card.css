@@ -10,6 +10,8 @@
 .product-card {
   overflow: hidden;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .product-card__image-container {
   aspect-ratio: 1;
@@ -30,6 +32,7 @@
   line-height: 112%;
   letter-spacing: 0.02em;
   color: var(--color-black);
+  flex: 1;
 }
 .product-card__buying-section {
   display: flex;

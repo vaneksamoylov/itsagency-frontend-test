@@ -83,6 +83,10 @@
   font-weight: 500;
   letter-spacing: 0.06em;
 }
+.catalog__sort {
+  display: flex;
+  align-items: center;
+}
 .catalog__sort-select {
   appearance: none;
   -webkit-appearance: none;
@@ -101,6 +105,9 @@
   font-weight: 500;
   cursor: pointer;
   text-align: right;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
 }
 .catalog__sort-select:focus-visible {
   outline: none;
@@ -135,26 +142,51 @@
   gap: 24px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  .catalog {
+    margin: 48px 24px 64px;
+  }
+  .catalog__products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+    gap: 15px;
+  }
   .catalog__filters {
     position: fixed;
     bottom: -100%;
-    width: 100%;
+    left: 0;
+    right: 0;
+    max-width: 100%;
     height: 318px;
     background: white;
     z-index: 1000;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease;
+    transition: all 0.3s linear;
+    opacity: 0;
+    overflow-y: auto;
   }
   .catalog__filters--active {
     bottom: 0;
-    left: 0;
     border-radius: 24px 24px 0 0;
+    opacity: 1;
+    background-image: url("./src/images/icons/line-icon.png");
+    background-repeat: no-repeat;
+    background-position: top 12px center;
+    padding-top: 54px;
   }
   .catalog__filter-group {
     padding-left: 24px;
   }
   .catalog__filter-toggle {
     display: flex;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+  }
+  .catalog__count {
+    display: none;
   }
 }

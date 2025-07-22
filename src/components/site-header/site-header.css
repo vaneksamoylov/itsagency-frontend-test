@@ -138,6 +138,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
 }
 .site-header__side-menu-button {
   display: none;

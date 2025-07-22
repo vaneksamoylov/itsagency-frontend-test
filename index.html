@@ -23,26 +23,32 @@
   <body class="page">
     <div class="page__container">
       <site-drawer direction="right" id="cartDrawer">
-        <h2 slot="header">Корзина</h2>
+        <h2 class="site-drawer__header-title" slot="header">Корзина</h2>
         <div slot="content" class="site-drawer__content">
           <site-cart></site-cart>
         </div>
       </site-drawer>
       <site-drawer direction="left" id="sideMenu">
-        <div slot="content">
-          <!-- Контент корзины -->
+        <h2 class="site-drawer__header-title" slot="header">Навигация</h2>
+        <div slot="content" class="site-drawer__content">
+          <div class="site-drawer__nav-container">
+            <a href="/products" class="site-drawer__nav-link">Продукты</a>
+            <a href="/colors" class="site-drawer__nav-link">Цвета</a>
+            <a href="/inspiration" class="site-drawer__nav-link">Вдохновение</a>
+            <a href="/guides" class="site-drawer__nav-link">Советы</a>
+            <a href="/search-shop" class="site-drawer__nav-link">Найти магазин</a>
+          </div>
         </div>
       </site-drawer>
 
       <site-header></site-header>
-      <site-slider>
+      <site-slider class="site-slider">
         <div>
-          <div class="site-header__slide-content">
-            <img class="site-header__slide-image" src="./src/images/Slide1.jpg" />
-            <div class="site-header__slide-text-area">
-              <!-- TODO: Разобраться, почему у заголовка нет высоты -->
-              <h2 class="site-header__slide-title">Краски</h2>
-              <p class="site-header__slide-subtitle">
+          <div class="site-slider__slide-content">
+            <img class="site-slider__slide-image" src="./src/images/Slide1.jpg" />
+            <div class="site-slider__slide-text-area">
+              <h2 class="site-slider__slide-title">Краски</h2>
+              <p class="site-slider__slide-subtitle">
                 Идеально подходят для стен и других поверхностей. Найди свой
                 идеальный цвет!
               </p>

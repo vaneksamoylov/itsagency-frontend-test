@@ -49,21 +49,14 @@ export default {
   async removeFromCart(id) {
     return apiClient.delete(`/cart-list/${id}`);
   },
-  
-  // Заготовка оформления заказа
-  // async createOrder(cartItems) {
-  //   // Преобразуем данные корзины в формат заказа
-  //   const order = {
-  //     items: cartItems.map(item => ({
-  //       productId: item.productId,
-  //       title: item.title,
-  //       price: item.price,
-  //       quantity: item.quantity
-  //     })),
-  //     total: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
-  //     date: new Date().toISOString()
-  //   };
+
+  async clearCart() {
+    const cartItems = await apiClient.get('/cart-list');
     
-  //   return apiClient.post('/orders', order);
-  // }
+    await Promise.all(
+      cartItems.map(item => apiClient.delete(`/cart-list/${item.id}`))
+    );
+    
+    return { success: true };
+  }
 };
