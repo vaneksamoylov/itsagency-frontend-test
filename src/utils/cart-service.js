@@ -30,11 +30,11 @@ class CartService {
       this._dispatchUpdate();
     } catch (error) {
       console.error("Error loading cart from server:", error);
-      await this._loadFromLocalStorage();
+      this._loadFromLocalStorage();
     }
   }
 
-  async _loadFromLocalStorage() {
+  _loadFromLocalStorage() {
     const cartData = localStorage.getItem("cart");
     if (cartData) {
       try {

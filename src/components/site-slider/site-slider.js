@@ -1,6 +1,5 @@
 import { loadStyles } from "../../utils/helpers.js";
 
-// Глобальный флаг для отслеживания загрузки стилей
 let stylesLoaded = false;
 
 class SiteSlider extends HTMLElement {
@@ -98,7 +97,6 @@ class SiteSlider extends HTMLElement {
     }
   }
 
-  // Обновление слайдера
   updateSwiper() {
     if (this._swiperInstance) {
       this._swiperInstance.update();

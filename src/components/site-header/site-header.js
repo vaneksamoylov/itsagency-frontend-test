@@ -1,5 +1,4 @@
 import { loadStyles } from "../../utils/helpers.js";
-import api from "../../utils/api.js";
 import { cartService } from "../../utils/cart-service.js";
 
 class SiteHeader extends HTMLElement {
@@ -82,7 +81,6 @@ class SiteHeader extends HTMLElement {
       `).join("");
     }
 
-    // Получаем элементы ПОСЛЕ рендера
     this.sideMenuButton = this.shadowRoot.getElementById("side-menu-button");
     this.cartButton = this.shadowRoot.getElementById("cart-button");
     this.cartCountEl = this.shadowRoot.getElementById("cart-count");
@@ -95,10 +93,8 @@ class SiteHeader extends HTMLElement {
       document.querySelector('site-drawer[direction="right"]').open();
     });
 
-    // Обновляем счетчик при загрузке
     this.updateCartCount();
 
-    // Слушаем обновления корзины
     window.addEventListener("cart-updated", () => this.updateCartCount());
   }
 

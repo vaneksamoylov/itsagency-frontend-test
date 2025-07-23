@@ -88,7 +88,6 @@ class SiteCatalog extends HTMLElement {
     this.sortButtonText = this.shadowRoot.getElementById("sortButtonText");
     this.sortList = this.shadowRoot.getElementById("sortList");
 
-    // Создаем оверлей
     this._overlay = document.createElement("div");
     this._overlay.className = "site-catalog-overlay";
     document.body.appendChild(this._overlay);
@@ -101,7 +100,6 @@ class SiteCatalog extends HTMLElement {
   }
 
   disconnectedCallback() {
-    // Удаляем оверлей и обработчики при удалении компонента
     if (this._overlay && document.body.contains(this._overlay)) {
       document.body.removeChild(this._overlay);
     }
@@ -123,7 +121,7 @@ class SiteCatalog extends HTMLElement {
 
   open() {
     if (this._isSortOpen) {
-      this.closeSortList(); // Закрываем селект если открыт
+      this.closeSortList();
     }
     
     this._isOpen = true;

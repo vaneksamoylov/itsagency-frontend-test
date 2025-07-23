@@ -49,7 +49,6 @@ class SiteProductCard extends HTMLElement {
       const product = JSON.parse(this.getAttribute("product"));
       cartService.addItem(product);
 
-      // Анимация добавления
       this.addToCartButton.classList.add(
         "product-card__add-to-cart-btn--active",
       );
