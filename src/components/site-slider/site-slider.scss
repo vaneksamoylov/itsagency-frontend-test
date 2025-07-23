@@ -6,9 +6,6 @@
 
   /* CSS переменные для кастомизации */
   --slide-bg: linear-gradient(45deg, #1a2980, #26d0ce);
-  --slide-color: white;
-  --navigation-color: #fff;
-  --pagination-color: #fff;
   --pagination-bullet-size: 6px;
 }
 
@@ -26,7 +23,7 @@
   justify-content: center;
   align-items: center;
   background: var(--slide-bg);
-  color: var(--slide-color);
+  color: var(--color-white);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   transform: scale(0.85);
@@ -47,8 +44,6 @@
     object-fit: cover;
   }
 }
-
-
 
 .swiper-slide-active {
   transform: scale(1);
@@ -84,7 +79,7 @@
 .swiper-pagination-bullet {
   width: var(--pagination-bullet-size);
   height: var(--pagination-bullet-size);
-  background: var(--pagination-color);
+  background: var(--color-white);
   opacity: 0.2;
   transition: all 0.3s ease;
   margin-bottom: 39px;
