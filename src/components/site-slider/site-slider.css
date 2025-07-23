@@ -1,14 +1,10 @@
 @charset "UTF-8";
 /* Базовые стили компонента */
 .site-slider-container {
-  display: block;
-  max-width: 1920px;
-  margin: 0;
-  box-sizing: border-box;
-  overflow: hidden;
+  position: relative;
   width: 100%;
+  aspect-ratio: 1920/560;
   /* CSS переменные для кастомизации */
-  --slide-height: 560px;
   --slide-bg: linear-gradient(45deg, #1a2980, #26d0ce);
   --slide-color: white;
   --navigation-color: #fff;
@@ -17,16 +13,18 @@
 }
 
 .swiper {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: var(--slide-height);
   background: var(--slide-bg);
   color: var(--slide-color);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -40,6 +38,11 @@
   max-width: 1920px;
   margin: 0 auto;
   overflow: hidden;
+}
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .swiper-slide-active {
