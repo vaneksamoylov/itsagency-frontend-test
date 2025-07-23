@@ -199,9 +199,13 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .catalog {
     margin: 48px 24px 64px;
+
+    &__main {
+      gap: 24px;
+    }
 
     &__products {
       display: grid;
@@ -241,6 +245,7 @@
     &__filter-toggle {
       display: flex;
       margin: 0;
+      padding: 0;
       text-align: center;
       text-transform: uppercase;
       font-weight: 500;

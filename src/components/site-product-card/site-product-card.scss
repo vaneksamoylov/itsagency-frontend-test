@@ -1,10 +1,15 @@
 :host {
   padding-bottom: 14px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1023px) {
+    padding-bottom: 34px;
+  }
 }
 
 :host(.last-row-item) {
   border: none;
+  padding-bottom: 0;
 }
 
 .product-card {

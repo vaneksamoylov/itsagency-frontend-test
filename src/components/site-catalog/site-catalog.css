@@ -170,9 +170,12 @@
   background-color: var(--color-green);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .catalog {
     margin: 48px 24px 64px;
+  }
+  .catalog__main {
+    gap: 24px;
   }
   .catalog__products {
     display: grid;
@@ -208,6 +211,7 @@
   .catalog__filter-toggle {
     display: flex;
     margin: 0;
+    padding: 0;
     text-align: center;
     text-transform: uppercase;
     font-weight: 500;

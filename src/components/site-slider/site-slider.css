@@ -96,9 +96,3 @@
   padding: 13px 24px;
   border-radius: 16px;
 }
-
-@media (max-width: 768px) {
-  :host {
-    display: none !important;
-  }
-}
