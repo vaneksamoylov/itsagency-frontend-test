@@ -1,7 +1,7 @@
 # [COLORS](https://vaneksamoylov.github.io/itsagency-frontend-test/)
 ## _Тестовое задания для фронтенд-разработчика в компанию [its.agency](https://its.agency/)_
 
-[![pages-build-deployment](https://github.com/vaneksamoylov/itsagency-frontend-test/actions/workflows/pages/pages-build-deployment/badge.svg?event=deployment_status)](https://github.com/vaneksamoylov/itsagency-frontend-test/actions/workflows/pages/pages-build-deployment)
+[![pages-build-deployment](https://github.com/vaneksamoylov/itsagency-frontend-test/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/vaneksamoylov/itsagency-frontend-test/actions/workflows/pages/pages-build-deployment)
 
 ## Функции
 
